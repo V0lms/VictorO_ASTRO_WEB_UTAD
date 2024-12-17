@@ -1,0 +1,51 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+const mores = await getCollection ("more")
+
+export async function getStaticPaths() {
+  
+  const mores = await getCollection ("more");
+
+  return mores.map(more => ({
+    params: {id:more.slug} ,
+    props: { more }
+  }))
+}
+
+const { more } = Astro.props;
+const { data } = more;
+const {name,brand,img,description,buy } = data
+const { Content } = await render(more)
+
+---
+<Layout title={name}>
+  <div class="flex flex-row p-8 my-0 bg-white min-h-svh sm:flex-col overflow-scroll">
+    <div class="gap-4 mr-6 herbs-center flex ml-[15vh]">
+      <img
+        src={img}
+        alt=`Imagen de ${name}`
+        class="rounded w-96 h-auto sm:h-[25vh] sm:w-auto"
+      />
+      <div class="flex h-[10vh] gap-5">
+        <div class="ml-7">
+          <div class="flex justify-between mb-[2vh]">
+            <div>
+              <h1 class="text-2xl font-bold text-gray-800">{name}</h1>
+              <h2 class="ml-3 text-xl font-bold text-gray-600">{brand}</h2>
+            </div>
+
+            <a href={buy} class="mr-[15vh]">
+              <p class="p-3 rounded-md bg-gray-100 text-green-800 text-center">
+                Comprar
+              </p>
+            </a>
+          </div>
+          <div class="ml-6">
+            <p class=" w-[60vh]">{description}</p><br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

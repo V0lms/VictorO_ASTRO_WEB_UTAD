@@ -1,0 +1,23 @@
+---
+const titulo = "HerbLife"
+const items = [
+    ['Te e Infusiones','herbs'],
+    ['Termos y teteras','pots'],
+    ['Complementos','more']
+]
+let i = 0;
+---
+
+<div class="flex justify-around p-2 bg-lime-800 h-max" transition:animate="fade">
+    <a class="px-6 py-2 text-2xl font-black text-white hover:text-lime-400" href="/">{titulo}</a>
+    <ul class="flex list-disc ">
+        {items.map(
+            item=> <li class="px-6 py-2 mr-2 list-none bg-gray-100 border-2 border-gray-100 rounded-md hover:border-lime-400 hover:text-lime-600">
+                <a href=`/${item[1]}`>{item[0]}</a>
+            </li> 
+        )}
+    </ul>   
+</div>
+
+
+

@@ -2,27 +2,59 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 
-const books = await getCollection('books')
-console.log(books)
+const items1 = await getCollection('herbs');
+const items2 = await getCollection('pots');
+const items3 = await getCollection('more');
 ---
 
 <Layout title="Tienda online libros.">
-	<main>
-		<h1 class=" text-red-500 text-2xl font-black text-center mb-3">Libreria online</h1>
+	<main class="bg-white min-h-[90vh]">
+		<h1 class="ml-10 text-2xl font-bold text-gray-700">HOME</h1>
 		<section>
-			<div class=" grid grid-cols-2 gap-10 ">
-				{books.map( book => {
-					const { slug,data } = book
-					const {title,author,img,readtime,description,buy } = data
+			<div class="grid gap-10 px-3 py-6 md:grid-cols-2 sm:grid-cols-1">
+				{items1.map( bag => {
+					const { slug,data } = bag
+					const {name,brand,img} = data
 					return(
-						<article class="book">
-							<a href={`/libro/${slug}`} class="mb-2"><img src=`${img}` alt=`Imagen del libro ${title}`></a>
-							<div>
-								<h2>{title}</h2>
-								<p>{author}</p>
-								<span>Lectura en: {readtime}</span>
-							</div>
-						</article>
+						<div class=" rounded-xl overflow-hidden border bg-white p-3 shadow-sm shadow-gray-500 max-h-[25vh]">
+							<a href={`/herbs/${slug}`} class="flex mb-2">
+								<img class="h-[15vh] w-auto" src={img} alt=`Producto: ${name}`>
+								<div class="px-6 py-4">
+									<div class="mb-2 text-xl font-bold">{name}</div>
+									<p class="text-base text-gray-700">{brand}</p>
+								</div>
+							</a>
+						</div>
+					)}
+				)}
+				{items2.map( bag => {
+					const { slug,data } = bag
+					const {name,brand,img } = data
+					return(
+						<div class=" rounded-xl overflow-hidden border bg-white p-3 shadow-sm shadow-gray-500 max-h-[25vh]">
+							<a href={`/pots/${slug}`} class="flex mb-2">
+								<img class="h-[15vh] w-auto" src={img} alt=`Producto: ${name}`>
+								<div class="px-6 py-4">
+									<div class="mb-2 text-xl font-bold">{name}</div>
+									<p class="text-base text-gray-700">{brand}</p>
+								</div>
+							</a>
+						</div>
+					)}
+				)}
+				{items3.map( bag => {
+					const { slug,data } = bag
+					const {name,brand,img} = data
+					return(
+						<div class=" rounded-xl overflow-hidden border bg-white p-3 shadow-sm shadow-gray-500 max-h-[25vh]">
+							<a href={`/more/${slug}`} class="flex mb-2">
+								<img class="h-[15vh] w-auto" src={img} alt=`Producto: ${name}`>
+								<div class="px-6 py-4">
+									<div class="mb-2 text-xl font-bold">{name}</div>
+									<p class="text-base text-gray-700">{brand}</p>
+								</div>
+							</a>
+						</div>
 					)}
 				)}
 			</div>
@@ -30,16 +62,4 @@ console.log(books)
 	</main>
 </Layout>
 <style>
-	.book{
-		@apply flex items-center my-2
-	}
-	.book img{
-		@apply h-60 w-auto
-	}
-	.book div{
-		@apply  block  ml-3
-	}
-	.book h2{
-		@apply font-black text-xl
-	}
 </style>

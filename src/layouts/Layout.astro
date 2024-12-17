@@ -1,4 +1,6 @@
 ---
+import Navbar from '../components/Navbar.astro';
+
 interface Props {
 	title: string;
 }
@@ -16,33 +18,10 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
-		<div>
+	<body class="px-10 mx-52 bg-emerald-100">
+		<Navbar  />
+		<div class="">
 			<slot />
 		</div>
 	</body>
 </html>
-<style is:global>
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		color: rgb(255, 231, 255);
-	}
-	body {
-		@apply grid place-content-center p-20;
-	}
-	body > div {
-		@apply:container;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-</style>

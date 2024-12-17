@@ -1,0 +1,16 @@
+---
+name: name
+brand: brand
+img: /img.jpg
+ingredient: [ ingredient ]
+description: description
+buy: amazon
+---
+# name
+## brand
+
+### Descripcion
+description
+
+### Inredientes
+- ingredient

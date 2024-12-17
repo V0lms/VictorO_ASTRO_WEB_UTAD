@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const items3 = await getCollection('more');
+---
+
+<Layout title="Tienda online libros.">
+	<main class="bg-white min-h-[90vh]">
+		<h1 class="ml-10 text-2xl font-bold text-gray-700">COMPLEMENTOS</h1>
+		<section>
+			<div class="grid gap-10 px-3 py-6 md:grid-cols-2 sm:grid-cols-1">
+				{items3.map( bag => {
+					const { slug,data } = bag
+					const {name,brand,img} = data
+					return(
+						<div class=" rounded-xl overflow-hidden border bg-white p-3 shadow-sm shadow-gray-500 max-h-[25vh]">
+							<a href={`/more/${slug}`} class="flex mb-2">
+								<img class="h-[15vh] w-auto" src={img} alt=`Producto: ${name}`>
+								<div class="px-6 py-4">
+									<div class="mb-2 text-xl font-bold">{name}</div>
+									<p class="text-base text-gray-700">{brand}</p>
+								</div>
+							</a>
+						</div>
+					)}
+				)}
+			</div>
+		</section>
+	</main>
+</Layout>
+<style>
+</style>

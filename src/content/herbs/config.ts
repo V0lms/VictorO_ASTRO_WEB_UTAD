@@ -1,14 +1,14 @@
 import { defineCollection, z } from "astro:content";
 
-const books = defineCollection({
+const herbs = defineCollection({
     schema: z.object({
-        title: z.string(),
-        author: z.string(),
+        name: z.string(),
+        brand: z.string(),
         img: z.string(),
-        readtime: z.number(),
+        ingredient: z.array(z.string()),
         description: z.string(),
         buy: z.string().url(),
     })
 })
 
-export const collection = { books }
+export const collection = { herbs }

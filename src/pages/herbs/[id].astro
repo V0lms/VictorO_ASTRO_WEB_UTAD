@@ -1,0 +1,59 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+const herbs = await getCollection("herbs");
+
+export async function getStaticPaths() {
+  const herbs = await getCollection("herbs");
+
+  return herbs.map((herb) => ({
+    params: { id: herb.slug },
+    props: { herb },
+  }));
+}
+
+const { herb } = Astro.props;
+const { data } = herb;
+const { name, brand, img, ingredient, description, buy } = data;
+const { Content } = await render(herb);
+---
+<Layout title={name}>
+  <div class="flex flex-row p-8 my-0 bg-white min-h-svh sm:flex-col overflow-scroll">
+    <div class="gap-4 mr-6 herbs-center flex ml-[15vh]">
+      <img
+        src={img}
+        alt=`Imagen de ${name}`
+        class="rounded w-96 h-auto sm:h-[25vh] sm:w-auto"
+      />
+      <div class="flex h-[10vh] gap-5">
+        <div class="ml-7">
+          <div class="flex justify-between mb-[2vh]">
+            <div>
+              <h1 class="text-2xl font-bold text-gray-800">{name}</h1>
+              <h2 class="ml-3 text-xl font-bold text-gray-600">{brand}</h2>
+            </div>
+
+            <a href={buy} class="mr-[15vh]">
+              <p class="p-3 rounded-md bg-gray-100 text-green-800 text-center">
+                Comprar
+              </p>
+            </a>
+          </div>
+          <div class="ml-6">
+            <p class=" w-[60vh]">{description}</p><br />
+
+            <h2>Ingredientes:</h2>
+            <ul class="list-disc ml-5">
+              {
+                ingredient.map((list) => {
+                  const { slug, ingredient } = list;
+                  return <li>{list}</li>;
+                })
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
